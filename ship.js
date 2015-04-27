@@ -30,10 +30,13 @@
   };
 
   Ship.prototype.decelerate = function (impulse) {
-    if(Math.sqrt(Math.pow(this.vel[0], 2) + Math.pow(this.vel[1],2)) != 0) {
-      this.vel[0] -= impulse * Math.cos(this.orientation);
-      this.vel[1] -= impulse * Math.sin(this.orientation);
+    if(Math.sqrt(Math.pow(this.vel[0], 2) + Math.pow(this.vel[1],2)) <= 0.000001) {
+      this.vel[0] = 0;
+      this.vel[1] = 0;
+      return;
     }
+    this.vel[0] -= impulse * Math.cos(this.orientation);
+    this.vel[1] -= impulse * Math.sin(this.orientation);
   };
 
   Ship.prototype.rotate = function (shift) {
