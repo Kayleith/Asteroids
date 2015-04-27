@@ -1,5 +1,5 @@
 ;(function() {
-  window.Asteroid.movingObject = movingObject = function(pos, vel, radius, color) {
+  window.Asteroid.MovingObject = MovingObject = function(pos, vel, radius, color) {
     this.pos = pos;
     this.vel = vel;
     this.radius = radius;
