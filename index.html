@@ -3,7 +3,21 @@
     <title>Asteroids</title>
   </head>
   <body>
+    <canvas id="game-canvas" width = "600" height= "600"></canvas>
+
+    <script src="util.js"></script>
+    <script src="movingObject.js"></script>
+    <script src="asteroid.js"></script>
+    <script src="game.js"></script>
+    <script src="gameView.js"></script>
+
+
     <script>
+      var canvas = document.getElementById("game-canvas");
+      var ctx = canvas.getContext("2d");
+      var game = new window.Asteroids.Game();
+      var gameView = new window.Asteroids.GameView(game, ctx);
+      gameView.start();
     </script>
   </body>
 </html>
