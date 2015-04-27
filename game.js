@@ -17,8 +17,7 @@
   Game.prototype.addAsteroids = function () {
     for (var i = 0; i < this.NUM_ASTEROIDS; i++) {
       var pos = this.randomPosition();
-      console.log(pos);
-      this.asteroids.push(new window.Asteroids.Asteroid(pos));
+      this.asteroids.push(new window.Asteroids.Asteroid(pos,this));
     }
   };
 
@@ -34,5 +33,47 @@
     this.asteroids.forEach(function(asteroid) {
       asteroid.move();
     });
+  };
+
+  Game.prototype.wrap = function (pos) {
+    var x = pos[0];
+    var y = pos[1];
+
+    if (x < 0) {
+      x = this.DIM_X;
+    } else if (x > this.DIM_X) {
+      x = 0;
+    }
+
+    if (y < 0) {
+      y = this.DIM_Y;
+    } else if (y > this.DIM_Y) {
+      y = 0;
+    }
+
+    return [x, y];
+  };
+
+  Game.prototype.checkCollisions = function () {
+    this.asteroids.forEach(function(asteroid1) {
+      this.asteroids.forEach(function(asteroid2) {
+        if(asteroid1 != asteroid2){
+          if(asteroid1.isCollidedWith(asteroid2)) {
+            this.remove(asteroid1);
+            this.remove(asteroid2);
+          }
+        }
+      }.bind(this))
+    }.bind(this))
+  };
+
+  Game.prototype.remove = function (asteroid) {
+    var index = this.asteroids.indexOf(asteroid);
+    this.asteroids.splice(index, 1);
+  };
+
+  Game.prototype.step = function () {
+    this.moveAsteroids();
+    this.checkCollisions();
   };
 })();

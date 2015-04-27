@@ -8,7 +8,7 @@
 
   GameView.prototype.start = function () {
     var render = (function() {
-      this.game.moveAsteroids();
+      this.game.step();
       this.game.draw(this.ctx);
     }).bind(this);
     window.setInterval(render, 20);
