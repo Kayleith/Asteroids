@@ -6,7 +6,12 @@
     this.NUM_ASTEROIDS = 20;
     this.asteroids = [];
     this.addAsteroids();
+    this.ship = new Asteroids.Ship(this.randomPosition(), this);
   };
+
+  Game.prototype.allObjects = function () {
+    return this.asteroids.concat([this.ship]);
+  }
 
   Game.prototype.randomPosition = function () {
     var x = Math.floor(Math.random() * this.DIM_X);
@@ -24,14 +29,14 @@
   Game.prototype.draw = function (ctx) {
     ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
 
-    this.asteroids.forEach(function (asteroid) {
-      asteroid.draw(ctx);
+    this.allObjects().forEach(function (object) {
+      object.draw(ctx);
     });
   };
 
-  Game.prototype.moveAsteroids = function () {
-    this.asteroids.forEach(function(asteroid) {
-      asteroid.move();
+  Game.prototype.moveObjects = function () {
+    this.allObjects().forEach(function(object) {
+      object.move();
     });
   };
 
@@ -55,25 +60,29 @@
   };
 
   Game.prototype.checkCollisions = function () {
-    this.asteroids.forEach(function(asteroid1) {
-      this.asteroids.forEach(function(asteroid2) {
-        if(asteroid1 != asteroid2){
-          if(asteroid1.isCollidedWith(asteroid2)) {
-            this.remove(asteroid1);
-            this.remove(asteroid2);
+    this.allObjects().forEach(function(object1) {
+      this.allObjects().forEach(function(object2) {
+        if(object1 != object2){
+          if(object1.isCollidedWith(object2)) {
+            this.remove(object1);
+            this.remove(object2);
           }
         }
       }.bind(this))
     }.bind(this))
   };
 
-  Game.prototype.remove = function (asteroid) {
-    var index = this.asteroids.indexOf(asteroid);
-    this.asteroids.splice(index, 1);
+  Game.prototype.remove = function (object) {
+    var index = this.asteroids.indexOf(object);
+    if (index !== -1) {
+      this.asteroids.splice(index, 1);
+    } else if (index === -1) {
+      this.ship = new Asteroids.Ship(this.randomPosition(), this);
+    }
   };
 
   Game.prototype.step = function () {
-    this.moveAsteroids();
+    this.moveObjects();
     this.checkCollisions();
   };
 })();
