@@ -1,8 +1,8 @@
 ;(function() {
   'use strict';
-  var Game = window.Asteroids.Game = function () {
-    this.DIM_X = 600;
-    this.DIM_Y = 600;
+  var Game = window.Asteroids.Game = function (dimX, dimY) {
+    this.DIM_X = dimX;
+    this.DIM_Y = dimY;
     this.NUM_ASTEROIDS = 10;
     this.asteroids = [];
     this.addAsteroids();

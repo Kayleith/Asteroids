@@ -3,7 +3,7 @@
     <title>Asteroids</title>
   </head>
   <body>
-    <canvas id="game-canvas" width = "600" height= "600"></canvas>
+    <canvas id="game-canvas"></canvas>
 
     <script src="keymaster.js"></script>
     <script src="util.js"></script>
@@ -17,7 +17,11 @@
     <script>
       var canvas = document.getElementById("game-canvas");
       var ctx = canvas.getContext("2d");
-      var game = new window.Asteroids.Game();
+
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+
+      var game = new window.Asteroids.Game(canvas.width, canvas.height);
       var gameView = new window.Asteroids.GameView(game, ctx);
       gameView.start();
     </script>
