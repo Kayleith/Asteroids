@@ -1,12 +1,14 @@
 ;(function () {
-  Asteroids.Asteroid = Asteroid = function(pos) {
+  COLOR = "red";
+  RADIUS = 10;
+
+  var Asteroid = Asteroids.Asteroid = function(pos) {
     Asteroids.MovingObject.call(this, pos);
-    this.COLOR = "Red";
-    this.RADIUS = 10;
+    this.color = COLOR;
+    this.radius = RADIUS;
     this.vel = Asteroids.Util.randomVec(2);
   };
 
-  Asteroids.Util.inherits(Asteroid, Asteroids.MovingObject);
+  Asteroids.Util.inherits(Asteroids.Asteroid, Asteroids.MovingObject);
 
-
-};)();
+})();

@@ -1,6 +1,6 @@
 ;(function() {
   'use strict';
-  window.Asteroids.Game = Game = function () {
+  var Game = window.Asteroids.Game = function () {
     this.DIM_X = 600;
     this.DIM_Y = 600;
     this.NUM_ASTEROIDS = 20;
@@ -9,23 +9,24 @@
   };
 
   Game.prototype.randomPosition = function () {
-    var x = Math.floor(Math.random(0, this.DIM_X));
-    var y = Math.floor(Math.random(0, this.DIM_Y));
+    var x = Math.floor(Math.random() * this.DIM_X);
+    var y = Math.floor(Math.random() * this.DIM_Y);
     return [x, y];
   };
 
   Game.prototype.addAsteroids = function () {
-    for (var i = 0; i < NUM_ASTEROIDS; i++) {
-      var pos = Game.randomPosition();
-      asteroids.push(new window.Asteroids.Asteroid(pos));
+    for (var i = 0; i < this.NUM_ASTEROIDS; i++) {
+      var pos = this.randomPosition();
+      console.log(pos);
+      this.asteroids.push(new window.Asteroids.Asteroid(pos));
     }
   };
 
   Game.prototype.draw = function (ctx) {
-    ctx.clearRect(0, 0, DIM_X, DIM_Y);
+    ctx.clearRect(0, 0, this.DIM_X, this.DIM_Y);
 
     this.asteroids.forEach(function (asteroid) {
-      asteroid.draw();
+      asteroid.draw(ctx);
     });
   };
 
@@ -34,4 +35,4 @@
       asteroid.move();
     });
   };
-}());
+})();

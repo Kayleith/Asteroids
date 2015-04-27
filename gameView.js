@@ -1,15 +1,16 @@
 ;(function() {
   'use strict';
 
-  var GameView = function (game, ctx) {
+  var GameView = Asteroids.GameView = function (game, ctx) {
     this.game = game;
     this.ctx = ctx;
   }
 
   GameView.prototype.start = function () {
-    setInterval(20, function() {
+    var render = (function() {
       this.game.moveAsteroids();
-      this.game.draw();
-    }.bind(this.game););
+      this.game.draw(this.ctx);
+    }).bind(this);
+    window.setInterval(render, 20);
   };
-}());
+})();
