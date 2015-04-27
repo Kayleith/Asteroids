@@ -31,5 +31,9 @@
     key('j', function () {
       this.game.ship.rotate(1);
     }.bind(this));
+
+    key('a', function () {
+      this.game.ship.fireBullet();
+    }.bind(this));
   };
 })();

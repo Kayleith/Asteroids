@@ -3,14 +3,15 @@
   var Game = window.Asteroids.Game = function () {
     this.DIM_X = 600;
     this.DIM_Y = 600;
-    this.NUM_ASTEROIDS = 0;
+    this.NUM_ASTEROIDS = 10;
     this.asteroids = [];
     this.addAsteroids();
     this.ship = new Asteroids.Ship(this.randomPosition(), this);
+    this.bullets = [];
   };
 
   Game.prototype.allObjects = function () {
-    return this.asteroids.concat([this.ship]);
+    return this.asteroids.concat([this.ship].concat(this.bullets));
   }
 
   Game.prototype.randomPosition = function () {
@@ -24,6 +25,10 @@
       var pos = this.randomPosition();
       this.asteroids.push(new window.Asteroids.Asteroid(pos,this));
     }
+  };
+
+  Game.prototype.addBullet = function (bullet) {
+    this.bullets.push(bullet);
   };
 
   Game.prototype.draw = function (ctx) {
@@ -56,14 +61,15 @@
     }.bind(this))
   };
 
-  // Game.prototype.remove = function (object) {
-  //   var index = this.asteroids.indexOf(object);
-  //   if (index !== -1) {
-  //     this.asteroids.splice(index, 1);
-  //   } else if (index === -1) {
-  //     this.ship = new Asteroids.Ship(this.randomPosition(), this);
-  //   }
-  // };
+  Game.prototype.remove = function (object) {
+    var index = this.asteroids.indexOf(object);
+    if (index !== -1) {
+      this.asteroids.splice(index, 1);
+    } else if (index === -1) {
+      var index = this.bullets.indexOf(object);
+      this.bullets.splice(index, 1);
+    }
+  };
 
   Game.prototype.step = function () {
     this.moveObjects();
