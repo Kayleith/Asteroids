@@ -12,4 +12,15 @@
 
   Asteroids.Util.inherits(Asteroids.Asteroid, Asteroids.MovingObject);
 
+  Asteroid.prototype.collideWith = function (otherObject) {
+    if (otherObject instanceof Asteroids.Ship) {
+      otherObject.relocate();
+    } else {
+      this.bounce();
+    }
+  };
+  Asteroid.prototype.bounce = function () {
+    this.vel[0] = -this.vel[0];
+    this.vel[1] = -this.vel[1];
+  };
 })();
