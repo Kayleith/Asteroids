@@ -13,6 +13,7 @@
     game.addBullet(this);
     this.radius = RADIUS;
     this.color = COLOR;
+    this.isWrappable = false;
   };
 
   Asteroids.Util.inherits(Bullet, Asteroids.MovingObject);

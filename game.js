@@ -10,6 +10,16 @@
     this.bullets = [];
   };
 
+  Game.prototype.isOutOfBounds = function (pos) {
+    if (pos[0] > this.DIM_X || pos[1] > this.DIM_Y) {
+      return true;
+    } else if (pos[0] < 0 || pos[1] < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   Game.prototype.allObjects = function () {
     return this.asteroids.concat([this.ship].concat(this.bullets));
   };

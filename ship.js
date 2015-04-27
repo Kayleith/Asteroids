@@ -45,7 +45,6 @@
   };
 
   Ship.prototype.fireBullet = function () {
-    console.log("bullet fired");
     var bulletVelocity = [
       (1 + this.vel[0]) * Math.cos(this.orientation),
       (1 + this.vel[1]) * Math.sin(this.orientation)
