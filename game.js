@@ -12,7 +12,11 @@
 
   Game.prototype.allObjects = function () {
     return this.asteroids.concat([this.ship].concat(this.bullets));
-  }
+  };
+
+  Game.prototype.objectsNotShip = function () {
+    return this.asteroids.concat(this.bullets);
+  };
 
   Game.prototype.randomPosition = function () {
     var x = Math.floor(Math.random() * this.DIM_X);
@@ -50,7 +54,7 @@
   };
 
   Game.prototype.checkCollisions = function () {
-    this.asteroids.forEach(function(object1) {
+    this.objectsNotShip().forEach(function(object1) {
       this.allObjects().forEach(function(object2) {
         if(object1 != object2){
           if(object1.isCollidedWith(object2)) {
